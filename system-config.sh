@@ -20,9 +20,11 @@ sudo apt-get install ifupdown resolvconf tzdata
 sudo apt-get purge cloud-init
 sudo apt-get purge netplan.io
 
-# setup network interfaces
+#Configure interfaces
+python /home/kolla/kolla-ansible-config/Configurator/interfaces_configurator/interfaces_configurator.py
 sudo mv /etc/network/interfaces /etc/network/interfaces.bak
-sudo cp ./kolla-config/interfaces /etc/network/
+sudo mv /home/kolla/kolla-ansible-config/interfaces /etc/network/
+
 
 # add ssh password login permission
 sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
@@ -33,8 +35,9 @@ sudo systemctl restart ssh
 set +x
 echo '>>> need to reboot, afterwards commands could not run <<<'
 read -p 'Do you want to reboot now? (Y/n): ' responce
-if [ $responce == 'Y' -o $responce == 'y' -o $responce 'YES' \
-   -o $responce 'yes' -o $responce 'Yes' ]; then
+if [ $responce == 'Y' -o $responce == 'y' -o $responce == 'YES' \
+   -o $responce == 'yes' -o $responce == 'Yes' ]
+then
     sudo reboot
 fi
 

@@ -21,6 +21,7 @@ sudo mkdir -p /etc/kolla
 sudo cp -r kolla-ansible/etc/kolla/* /etc/kolla
 sudo chown -R $USER:$USER /etc/kolla
 cp kolla-ansible/ansible/inventory/* .
+python /home/kolla/kolla-ansible-config/Configurator/multinode_configurator/multinode_configurator.py
 
 # ansible configuration
 
@@ -39,19 +40,26 @@ EOT'
 
 # this section is high-risk for failure due to possible sample changes,
 # make sure all substitutions succeeded when troubleshooting something:
+
+#Run globals configurator
+python /home/kolla/kolla-ansible-config/Configurator/globals_configurator/globals_configurator.py
 sudo mv /etc/kolla/globals.yml /etc/kolla/globals.yml.bak
-sudo cp ./kolla-config/globals.yml /etc/kolla/globals.yml
+sudo cp ./kolla-ansible-config/globals.yml /etc/kolla/globals.yml
+
 
 # setup volumes for VMs
 sudo apt install lvm2
-sudo pvcreate /dev/sda10					# must change /dev/DISK_NAME
-sudo vgcreate cinder-volumes /dev/sda10		# must change /dev/DISK_NAME
+
+read -p 'Insert volume  name for Cinder partition (You can find it with fdisk -l): ' responce
+
+sudo pvcreate $responce				# must change /dev/DISK_NAME
+sudo vgcreate cinder-volumes $responce		# must change /dev/DISK_NAME
 
 # need to restart
 set +x
 echo '>>> need to reboot, afterwards commands could not run <<<'
 read -p 'Do you want to reboot now? (Y/n): ' responce
-if [ $responce == 'Y' -o $responce == 'y' -o $responce 'YES' \
+if [ $responce == 'Y' -o $responce == 'y' -o $responce == 'YES' \
    -o $responce == 'yes' -o $responce == 'Yes' ]
 then
     sudo reboot

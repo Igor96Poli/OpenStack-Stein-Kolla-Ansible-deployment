@@ -1,5 +1,5 @@
-fin = open("multinode_template", "rt")
-fout = open("multinode", "wt")
+fin = open("/home/kolla/kolla-ansible-config/Configurator/multinode_configurator/multinode_template", "rt")
+fout = open("/home/kolla/multinode", "wt")
 
 groups = ["[control]", "[network]", "[compute]", "[monitoring]", "[storage]", "[deployment]"]
 
@@ -40,6 +40,7 @@ for g in groups:
         fout.write("neutron_external_interface=" + neutron_interface + "\n")
 
     fout.write('\n')
+    print ('\n')
 
 for line in fin:
     fout.write(line)
