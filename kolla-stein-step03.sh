@@ -52,7 +52,8 @@ set +x
 echo '>>> need to reboot, afterwards commands could not run <<<'
 read -p 'Do you want to reboot now? (Y/n): ' responce
 if [ $responce == 'Y' -o $responce == 'y' -o $responce 'YES' \
-   -o $responce 'yes' -o $responce 'Yes' ]; then
+   -o $responce == 'yes' -o $responce == 'Yes' ]
+then
     sudo reboot
 fi
 
