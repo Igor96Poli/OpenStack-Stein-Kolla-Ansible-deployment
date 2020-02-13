@@ -21,7 +21,7 @@ sudo mkdir -p /etc/kolla
 sudo cp -r kolla-ansible/etc/kolla/* /etc/kolla
 sudo chown -R $USER:$USER /etc/kolla
 cp kolla-ansible/ansible/inventory/* .
-python /home/kolla/kolla-ansible-config/Configurator/multinode_configurator/multinode_configurator.py
+python /home/kolla/kolla-ansible-config/Configurator/hosts_configurator/hosts_configurator.py
 
 # ansible configuration
 
