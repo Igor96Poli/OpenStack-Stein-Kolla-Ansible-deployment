@@ -14,7 +14,7 @@ sudo apt-get update
 sudo apt-get upgrade
 
 # install interfaces packets
-sudo apt-get install ifupdown resolvconf tzdata
+sudo apt-get install ifupdown resolvconf tzdata wpasupplicant
 
 # remove network managers
 sudo apt-get purge cloud-init
