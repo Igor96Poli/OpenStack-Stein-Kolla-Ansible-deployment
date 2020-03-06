@@ -9,10 +9,27 @@
 
 cd
 
+# get kolla running (if sudo expires in-between the commands, re-run sudo manually just to refresh)
+./kolla-ansible/tools/kolla-ansible -i ./hosts bootstrap-servers
+./kolla-ansible/tools/kolla-ansible -i ./hosts prechecks
+
+# and finally deploy
+./kolla-ansible/tools/kolla-ansible -i ./hosts deploy
+
+# post installation
+./kolla-ansible/tools/kolla-ansible -i ./hosts post-deploy
 source /etc/kolla/admin-openrc.sh
 
-# create basic OpenStack resources (uses CLI above)
-./kolla-ansible/tools/init-runonce
+# configure public flat network addressing
+sudo mv ./kolla-ansible/tools/init-runonce ./kolla-ansible/tools/init-runonce.bak
+python	./kolla-ansible-config/Configurator/init_runonce_configurator/init_runonce_configurator.py
+sudo cp ./kolla-ansible-config/init-runonce ./kolla-ansible/tools/init-runonce
+sudo chmod +x ./kolla-ansible/tools/init-runonce
+
+sudo apt-get update
+
+# CLI
+pip install -U --user python-openstackclient python-glanceclient python-neutronclient
 
 # need to restart
 set +x

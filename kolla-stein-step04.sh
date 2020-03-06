@@ -9,27 +9,51 @@
 
 cd
 
-# get kolla running (if sudo expires in-between the commands, re-run sudo manually just to refresh)
-./kolla-ansible/tools/kolla-ansible -i ./hosts bootstrap-servers
-./kolla-ansible/tools/kolla-ansible -i ./hosts prechecks
+# kolla-ansible source installation (better for development)
+git clone https://github.com/openstack/kolla --branch stable/stein
+git clone https://github.com/openstack/kolla-ansible --branch stable/stein
+pip install --user -r kolla/requirements.txt
+pip install --user -r kolla-ansible/requirements.txt
 
-# and finally deploy
-./kolla-ansible/tools/kolla-ansible -i ./hosts deploy
+# init configs
+sudo rm -rf /etc/kolla
+sudo mkdir -p /etc/kolla
+sudo cp -r kolla-ansible/etc/kolla/* /etc/kolla
+sudo chown -R $USER:$USER /etc/kolla
+cp kolla-ansible/ansible/inventory/* .
+python ./kolla-ansible-config/Configurator/hosts_configurator/hosts_configurator.py
 
-# post installation
-./kolla-ansible/tools/kolla-ansible -i ./hosts post-deploy
-source /etc/kolla/admin-openrc.sh
+# ansible configuration
 
-# configure public flat network addressing
-sudo mv ./kolla-ansible/tools/init-runonce ./kolla-ansible/tools/init-runonce.bak
-python	./kolla-ansible-config/Configurator/init_runonce_configurator/init_runonce_configurator.py
-sudo cp ./kolla-ansible-config/init-runonce ./kolla-ansible/tools/init-runonce
-sudo chmod +x ./kolla-ansible/tools/init-runonce
+sudo mv /etc/ansible/ansible.cfg /etc/ansible/ansible.cfg.bak
+sudo mkdir /etc/ansible
+sudo touch /etc/ansible/ansible.cfg
+sudo bash -c 'cat <<EOT > /etc/ansible/ansible.cfg
+[defaults]
+host_key_checking=False
+pipelining=True
+forks=100
+EOT'
 
-sudo apt-get update
+# generate new /etc/kolla/passwords.yml
+./kolla-ansible/tools/generate_passwords.py
 
-# CLI
-pip install -U --user python-openstackclient python-glanceclient python-neutronclient
+# this section is high-risk for failure due to possible sample changes,
+# make sure all substitutions succeeded when troubleshooting something:
+
+#Run globals configurator
+python ./kolla-ansible-config/Configurator/globals_configurator/globals_configurator.py
+sudo mv /etc/kolla/globals.yml /etc/kolla/globals.yml.bak
+sudo cp ./kolla-ansible-config/globals.yml /etc/kolla/globals.yml
+
+
+# setup volumes for VMs
+sudo apt install lvm2
+
+read -p 'Insert volume  name for Cinder partition (You can find it with fdisk -l): ' responce
+
+sudo pvcreate $responce				# must change /dev/DISK_NAME
+sudo vgcreate cinder-volumes $responce		# must change /dev/DISK_NAME
 
 # need to restart
 set +x

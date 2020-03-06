@@ -1,4 +1,4 @@
-file = open('/home/kolla/kolla-ansible-config/interfaces', 'w')
+file = open('./kolla-ansible-config/interfaces', 'w')
 
 #Loopback interface
 file.write("auto lo\niface lo inet loopback\n\n")

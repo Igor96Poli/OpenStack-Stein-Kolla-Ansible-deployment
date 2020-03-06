@@ -1,5 +1,5 @@
-fin = open("/home/kolla/kolla-ansible-config/Configurator/hosts_configurator/hosts_template", "rt")
-fout = open("/home/kolla/hosts", "wt")
+fin = open("./kolla-ansible-config/Configurator/hosts_configurator/hosts_template", "rt")
+fout = open("./hosts", "wt")
 
 print ("Insert your hosts for inventory file:")
 

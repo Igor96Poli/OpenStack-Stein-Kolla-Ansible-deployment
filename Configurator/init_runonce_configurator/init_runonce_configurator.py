@@ -1,5 +1,5 @@
-fin = open("/home/kolla/kolla-ansible-config/Configurator/init_runonce_configurator/init-runonce-template", "rt")
-fout = open("/home/kolla/kolla-ansible-config/init-runonce", "wt")
+fin = open("./kolla-ansible-config/Configurator/init_runonce_configurator/init-runonce-template", "rt")
+fout = open("./kolla-ansible-config/init-runonce", "wt")
 
 external_net = raw_input("Insert your external network address [address/mask]: ")
 
