@@ -9,7 +9,7 @@ This project allows you to deploy OpenStack in single-node or in multi-node.
 ## deploy
 You need to do:
 1. download the repository in /home and do not rename the folder (this because scripts will not work)
-2. know the 2 NIC's name, one need an IP address, the others should not have one
+2. know the 2 NIC's name, one need an IP address, the other should not have one
 3. know all the IP address of your nodes, if you want a multi-node deploy
 4. run all the scripts in order, from 01 to 06, in user mode and not in sudo mode. You need to run the scripts one time on one single node, for both the types of deploy.
 
