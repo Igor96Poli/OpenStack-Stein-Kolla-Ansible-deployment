@@ -12,9 +12,9 @@ if (install_type not in ['binary', 'source']):
 
 openstack_release = raw_input("Select your Openstack release: ")
 
-internal_ip = raw_input("Select the Internal IP Address: ")
+internal_ip = raw_input("Select the Internal IP Address [not assigned to any host]: ")
 
-external_ip = raw_input("Select the External IP Address: ")
+external_ip = raw_input("Select the External IP Address [not assigned to any host]: ")
 
 for line in fin:
     line = line.replace("var_base_distro", base_distro)
