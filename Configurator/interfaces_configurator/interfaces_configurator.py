@@ -24,19 +24,18 @@ if (response == "yes" or response == "y" or response == "Yes" or response == "Y"
     wpa_psk = raw_input("Insert your wirless network password: ")
     file.write("wpa-psk " + wpa_psk + "\n\n")
 
-#Setup secondary interface
-secondary_interface = raw_input("\nInsert your secondary interface name: ")
-file.write("auto " + secondary_interface + "\niface " + secondary_interface + " inet manual\n")
-file.write("up ip link set dev " + secondary_interface + "up\n")
-file.write("down ip link set dev " + secondary_interface + "down\n\n")
-
-
 #DNS Servers
 while True:
-    dns_address = raw_input("Insert your DNS IP address (q to quit): ")
+    dns_address=raw_input("Insert your DNS IP address (q to quit): ")
     if (dns_address == 'q'):
-        break
-    file.write("dns-nameserver "+ dns_address + "\n")
+	break
+    file.write("dns-nameserver " + dns_address + "\n")
+
+#Setup secondary interface
+secondary_interface = raw_input("\nInsert your secondary interface name: ")
+file.write("\nauto " + secondary_interface + "\niface " + secondary_interface + " inet manual\n")
+file.write("up ip link set dev " + secondary_interface + " up\n")
+file.write("down ip link set dev " + secondary_interface + " down\n\n")
 
 #Close file
 file.close()
