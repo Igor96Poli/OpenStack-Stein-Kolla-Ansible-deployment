@@ -1,28 +1,32 @@
+print("\n##############################")
+print("Interfaces configurator\n")
+
 file = open('./kolla-ansible-config/interfaces', 'w')
 
 #Loopback interface
 file.write("auto lo\niface lo inet loopback\n\n")
 
 #Setup primary interface
-primary_interface = raw_input("Insert your primary interface name: ")
+primary_interface = raw_input("Insert your primary interface name [enp0s25]: ")
 file.write("auto " + primary_interface + "\niface " + primary_interface + " inet static\n")
 
-ip_address = raw_input("Insert your primary interface IP address: ")
+ip_address = raw_input("Insert your primary interface IP address [192.168.0.101]: ")
 file.write("  address " + ip_address + "\n")
 
-netmask = raw_input("Insert your primary interface netmask: ")
+netmask = raw_input("Insert your primary interface netmask [255.255.255.0]: ")
 file.write("  netmask " + netmask + "\n")
 
-dg_address = raw_input("Insert your Default Gateway IP address: ")
+dg_address = raw_input("Insert your Default Gateway IP address [192.168.0.1]: ")
 file.write("  gateway " + dg_address + "\n")
 
-response = raw_input("Is your interface a wireless Interface? [Y/n]: ")
+response = raw_input("\nIs your interface a wireless Interface? [Y/n]: ")
 if (response == "yes" or response == "y" or response == "Yes" or response == "Y" or response == "YES"):
     wpa_ssid = raw_input("Insert your wirless network SSID: ")
     file.write("\nwpa-ssid " + wpa_ssid + "\n")
 
     wpa_psk = raw_input("Insert your wirless network password: ")
     file.write("wpa-psk " + wpa_psk + "\n\n")
+
 
 #DNS Servers
 while True:

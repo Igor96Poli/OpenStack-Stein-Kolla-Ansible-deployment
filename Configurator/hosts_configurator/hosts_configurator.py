@@ -1,13 +1,16 @@
 fin = open("./kolla-ansible-config/Configurator/hosts_configurator/hosts_template", "rt")
 fout = open("./hosts", "wt")
 
+print("\n##############################")
+print("Host configurator\n")
+
 print ("Insert your hosts for inventory file:")
 
 hosts = {}
 
 while True:
     #IP Address
-    ip_address = raw_input("IP Address  (q to quit): ")
+    ip_address = raw_input("IP Address [localhost or 192.168.0.102]  (q to quit): ")
 
     if (ip_address == 'q'):
 	print ('\n')
@@ -25,14 +28,14 @@ while True:
         root_pass = raw_input("Insert your Ansible root password: ")
         hosts[ip_address] += "ansible_become_password=" + root_pass + " "
         #Private key path
-        key_path = raw_input("Insert your private key path: ")
+        key_path = raw_input("Insert your private key path [/home/user/.ssh/id.rsa]: ")
         hosts[ip_address] += "ansible_private_key_file=" + key_path + " "
 
     #Network interface
-    network_interface = raw_input("Insert your main network interface: ")
+    network_interface = raw_input("Insert your main network interface [enp0s25]: ")
     hosts[ip_address] += "network_interface=" + network_interface + " "
     #Neutron external interface
-    neutron_interface = raw_input("Insert Neutron interface: ")
+    neutron_interface = raw_input("Insert Neutron interface [enxd03745781aad]: ")
     hosts[ip_address] += "neutron_external_interface=" + neutron_interface
     print ('\n')
 

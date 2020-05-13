@@ -1,6 +1,10 @@
 fin = open("./kolla-ansible-config/Configurator/globals_configurator/globals_template.yml", "rt")
 fout = open("./kolla-ansible-config/globals.yml", "wt")
 
+
+print("\n##############################")
+print("globals.yml configurator\n")
+
 base_distro = raw_input("Select your base distro [centos, debian, oraclelinux, rhel, ubuntu]: ")
 if (base_distro not in ['centos', 'debian', 'oraclelinux', 'rhel', 'ubuntu']):
     base_distro = "ubuntu"
