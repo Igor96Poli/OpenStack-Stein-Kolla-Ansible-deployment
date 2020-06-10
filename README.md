@@ -13,7 +13,7 @@ This project allows you to deploy OpenStack in single-node or in multi-node.
    - [Inventory file configuration](#Inventory-file-configuration)
    - [globals.yml file configuration](#globals.yml-file-configuration)
    - [Cinder initialization](#Cinder-initialization)
-   -[Deployment initialization](#Deployment-initialization)
+   - [Deployment initialization](#Deployment-initialization)
 3. [Authors](#Authors)
   
 ## Requirements
