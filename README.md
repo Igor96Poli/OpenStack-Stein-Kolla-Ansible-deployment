@@ -3,7 +3,7 @@ Kolla ansibile configuration on Ubuntu server 18.04 with OpenStack "Stein".
 
 ## Overview
 This project has focused on OpenStack deploy using kolla ansible project.
-We add bash scripts for prepare the enviroments, install all the components, as Python and Ansible, and python scripts for configure filesystems and kolla-ansbile files.
+We add bash scripts to prepare the enviroments, installing all the components, as Python and Ansible tools, and python scripts to configure filesystems and kolla-ansbile files.
 This project allows you to deploy OpenStack in single-node or in multi-node.
 
 ## Index
