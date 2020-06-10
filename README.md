@@ -1,12 +1,22 @@
 # kolla-ansible-config
 Kolla ansibile configuration on Ubuntu server 18.04 with OpenStack "Stein".
 
-## overview
+## Overview
 This project has focused on OpenStack deploy using kolla ansible project.
 We add bash scripts for prepare the enviroments, install all the components, as Python and Ansible, and python scripts for configure filesystems and kolla-ansbile files.
 This project allows you to deploy OpenStack in single-node or in multi-node.
 
-## requirements
+## Index
+1. [Requirements](#Requirements)
+2. [Deploy](#Deploy)
+  - [Interfaces configuration](#Interfaces-configuration)
+  - [Inventory file configuration](#Inventory-file-configuration)
+  - [globals.yml file configuration](#globals.yml-file-configuration)
+  - [Cinder initialization](#Cinder-initialization)
+  -[Deployment initialization](#Deployment-initialization)
+3. [Authors](#Authors)
+  
+## Requirements
 You need to:
 1. download the repository in /home and do **not** rename the downloaded folder (this because scripts will not work)
 2. provide the 2 NIC's name of each physical node wich will be part of the cluster, one interface need an IP address, the other **must** not have one.
@@ -14,7 +24,7 @@ You need to:
 
 Some times scripts ask for sudo password or reboot the system.
 
-## deploy
+## Deploy
 
 With the provided *bash* scripts is possible to deploy a multinode *OpenStack* infrastructure.
 
@@ -161,7 +171,7 @@ $ Insert your address range [insert space between the 2 addresses firstIP second
 $ Insert yout default gateway IP address: 192.168.0.1
 ```
 
-## authors
+## Authors
 
 Della Chiesa Andrea
 Ferretti Igor
